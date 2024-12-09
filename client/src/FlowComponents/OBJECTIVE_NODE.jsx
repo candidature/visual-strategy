@@ -214,12 +214,12 @@ export default function OBJECTIVE_NODE({data, rfInstance,nodes, edges} ) {
                 }}
             >
                 <div className="tooltip">
-                    {/*{nodeFormData?.description?*/}
-                    {/*    <span className="tooltiptext">*/}
-                    {/*        {nodeFormData?.description}*/}
-                    {/*    </span>*/}
-                    {/*    :''*/}
-                    {/*}*/}
+                    {nodeFormData?.description?
+                        <span className="tooltiptext">
+                            {nodeFormData?.description}
+                        </span>
+                        :''
+                    }
 
                     <div className="circle">
                         <Box
@@ -273,7 +273,7 @@ export default function OBJECTIVE_NODE({data, rfInstance,nodes, edges} ) {
 
                                 <FormLabel htmlFor='name'>Objective Description</FormLabel>
                                 <Input name="description" id="description" label="description"
-                                       // defaultValue={nodeFormData?.description[0].description}
+                                       defaultValue={nodeFormData?.description}
                                 >
                                 </Input>
 

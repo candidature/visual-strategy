@@ -60,14 +60,17 @@ export const updateSingleTask = async (req, res) => {
                 if(req.body.name) {
                     n.data.name = req.body.name
                 }
+                // if(req.body.description) {
+                //     let date  = new Date(Date.now()).toISOString()
+                //     let history = {
+                //         "date":date,
+                //         "description":req.body.description,
+                //         "updated_by": req.jwtData.userId
+                //     }
+                //     n.data.description.push(history)
+                // }
                 if(req.body.description) {
-                    let date  = new Date(Date.now()).toISOString()
-                    let history = {
-                        "date":date,
-                        "description":req.body.description,
-                        "updated_by": req.jwtData.userId
-                    }
-                    n.data.description.push(history)
+                    n.data.description = req.body.description
                 }
                 if(req.body.assigned_to) {
                     n.data.assigned_to = req.body.assigned_to

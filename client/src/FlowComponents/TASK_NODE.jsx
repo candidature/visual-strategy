@@ -205,12 +205,12 @@ export default function TASK_NODE({data, rfInstance,nodes, edges}) {
                 }}
             >
                 <div className="tooltip">
-                    {/*{nodeFormData?.description ?*/}
-                    {/*    <span className="tooltiptext">*/}
-                    {/*        {nodeFormData?.description}*/}
-                    {/*    </span>*/}
-                    {/*    : ''*/}
-                    {/*}*/}
+                    {nodeFormData?.description ?
+                        <span className="tooltiptext">
+                            {nodeFormData?.description}
+                        </span>
+                        : ''
+                    }
 
                     <div >
                         <Box
@@ -263,28 +263,11 @@ export default function TASK_NODE({data, rfInstance,nodes, edges}) {
                                 >
                                 </Input>
 
-                                <FormLabel htmlFor='description'>Task Description</FormLabel>
-                                {nodeFormData?.description.map((item, index) => {
-
-                                    if(nodeFormData?.description.length-1 === index){
-                                        return (<Input name="description" id="description" label="description"
-                                                       defaultValue={item.description}
-                                            >
-                                            </Input>
-                                        )
-                                    } else {
-                                        return (<Input name="description" id="description" readonly label="description"
-                                                defaultValue={item.description}
-                                            >
-                                            </Input>
-                                        )
-
-                                    }
-                                    }
-                                    )
-                                }
-
-
+                                <FormLabel htmlFor='name'>Task Description</FormLabel>
+                                <Input name="description" id="description" label="description"
+                                       defaultValue={nodeFormData?.description}
+                                >
+                                </Input>
 
                                 <FormLabel htmlFor='name'>Assigned to:</FormLabel>
                                 <Input name="assigned_to" id="assigned_to" label="assigned_to"

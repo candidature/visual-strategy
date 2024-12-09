@@ -61,6 +61,7 @@ const InitiativeSchema = new mongoose.Schema({
             kpiCcore: Number,
             kpiComments: String
         },
+
     ],
     createdBy: {
         type: mongoose.Types.ObjectId,
