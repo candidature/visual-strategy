@@ -232,7 +232,10 @@ export default function OBJECTIVE_NODE({data, rfInstance,nodes, edges} ) {
                                 },
                             }}
                         >
-                        <div className={flagNode?"textCircle blink_me":"textCircle"} style={{padding: -2}}>{`${nodeFormData?.name}`}</div>
+                        <div className={flagNode?"textCircle blink_me":"textCircle"} style={{padding: -2}}>
+                            <h5>{`${nodeFormData?.name}`}</h5>
+                        </div>
+
                         <div style={{padding:7}}>{size} objectives</div>
                         <div>Effort: {effortEstimation}</div>
 

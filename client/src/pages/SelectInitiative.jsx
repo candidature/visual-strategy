@@ -8,7 +8,12 @@ import {toast} from "react-toastify";
 import {json} from "@remix-run/router";
 import {DashboardContext} from "./DashboardLayout.jsx";
 
-export const loader = async ({params})=> {
+export const loader = async ({params,request})=> {
+
+    const zoomNodeName = new URL(request.url).searchParams.get('zoomNodeName');
+    console.log(zoomNodeName)
+
+
     // try {
     //     //TBD: below 2 to be done in parallel as descibed here: https://stackoverflow.com/questions/74719956/can-i-handle-multiple-loaders-for-a-single-url-in-remix
     //
@@ -22,7 +27,7 @@ export const loader = async ({params})=> {
 
     try {
         const [data, allInitiativeData] = await Promise.all([
-            await customFetch.get("/flow-test/"+params.initiative),
+            await customFetch.get("/flow-test/"+params.initiative+"?zoomNodeName="+zoomNodeName),
             await customFetch.get("/flow-test")
         ]);
         return json({ data, allInitiativeData });
@@ -44,8 +49,8 @@ export default function SelectInitiative() {
     const [currentInitiative, setCurrentInitiative] = useState(initiative);
 
     const zoomNodeName = searchParams.get("zoomNodeName");
-    //console.log("Matching...")
-    //console.log(zoomNodeName)
+    console.log("Matching...")
+    console.log(zoomNodeName)
 
 
     const navigate = useNavigate()
@@ -59,7 +64,7 @@ export default function SelectInitiative() {
 
     useEffect(() => {
         let initialInitiatives = []
-        console.log(allInitiativeData.data)
+        //console.log(allInitiativeData.data)
 
         allInitiativeData.data.map((i)=>{
 
@@ -68,7 +73,9 @@ export default function SelectInitiative() {
             //console.log(n.data.name , zoomNodeName)
             if(i.name===zoomNodeName) {
                 toBeZoomedNodeId = i.data.id
-                //console.log("MATCH FOUND")
+                console.log("MATCH FOUND")
+            } else {
+                console.log("zoom node name not found",i.name)
             }
         })
 

@@ -4,17 +4,46 @@ import InitiativeModel from "../models/InitiativeModel.js";
 import {v4 as uuidv4} from "uuid";
 
 
+export const getNodeIdByName= async (req, res) => {
+    const { initiative } = req.params;
+    console.log("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
+    const query = req.query;// query param
+    console.log(query)
+    let zoomNodeName=null;
+
+    if(query.zoomNodeName) {
+        console.log(query.zoomNodeName);
+        zoomNodeName=query.zoomNodeName;
+    }
+
+    let zoomNodeId = 0;
+    if(zoomNodeName) {
+        await FlowSchema.findOne({"nodes.data.name":zoomNodeName})
+        .then(async (data) => {
+            console.log(data)
+            zoomNodeId = data?.id
+        })
+    }
+
+    console.log(zoomNodeId)
+
+}
+
+
+
 export const getInitiativeFlow = async (req, res) => {
     const { initiative } = req.params;
+
+
     console.log(initiative+".");
+
     const initiativeData = await FlowSchema
         .findOne({$and:[{"nodes.type": "INITIATIVE_NODE"},{"nodes.data.name":initiative}]})
         .then(async (data) => {
-            console.log(data)
             if(!data) {
                 return res.status(StatusCodes.NOT_FOUND).json({"message": "No such initiative found!"});
             }
-            return res.status(StatusCodes.OK).json({data});
+            return res.status(StatusCodes.OK).json({"data": data});
         }).catch((err) => {
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({"message": err.message});
         })

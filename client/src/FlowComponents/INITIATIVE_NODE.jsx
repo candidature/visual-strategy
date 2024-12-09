@@ -117,7 +117,7 @@ export default function INITIATIVE_NODE({data,rfInstance}) {
                             },
                         }}
                     >
-                        <div className="textCircle" style={{padding: 3}}>{`${data.name}`}</div>
+                        <div className="textCircle" style={{padding: 3}}><h5>{`${data.name}`}</h5></div>
                         <Handle type={"source"} position={Position.Right}
                                 style={{
                                     background: 'blue', color: 'darkblue', width: 14,

@@ -224,7 +224,7 @@ export default function TASK_NODE({data, rfInstance,nodes, edges}) {
                             }}
                         >
                             <div className={flagNode ? "textCircle blink_me" : "textCircle"}
-                                 style={{padding: -2}}><p>{`${nodeFormData?.name}`}</p></div>
+                                 style={{padding: -2}}><h5>{`${nodeFormData?.name}`}</h5></div>
                             <div style={{padding: 7}}>{size} tasks</div>
                             <div>Effort: {effortEstimation}</div>
 

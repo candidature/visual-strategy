@@ -38,7 +38,7 @@ export const ContextMenu = ({ setMenuVisible, nodes, position,rfInstance }) => {
             deletable: false,
 
             data: {
-                name: "New Task! "+ user._id,
+                name: "New Task!",
                 id: nodeid,
                 description: [],
                 assigned_to: "",
