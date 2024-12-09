@@ -4,7 +4,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "setup-project": "npm i && cd client && npm i",
+    "setup-project": "npm i && npm i uuid && cd ../client && npm i && npm i uuid",
+    "setup-production-app": "npm i && npm i uuid && echo \"=======CLIENT======\n\" && cd ../client && npm i && npm i uuid && npm run build && sleep 3",
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
     "server": "nodemon server",
     "client": "cd ../client && npm run dev"
