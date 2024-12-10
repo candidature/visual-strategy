@@ -168,7 +168,7 @@ export const createNode = async (req, res) => {
                     })
 
             } else {
-                return res.status(StatusCodes.OK).json({"message": "Already exists"});
+                return res.status(StatusCodes.BAD_REQUEST).json({"message": "Initiative with same name already exists!"});
             }
         }).catch((err) => {
             return res.status(StatusCodes.BAD_REQUEST).json({"message": err.message});

@@ -16,6 +16,9 @@ import {redirect, useLoaderData, useParams} from "react-router-dom";
 
 import '@xyflow/react/dist/style.css';
 import {Box, ChakraProvider} from "@chakra-ui/react";
+//import Box from '@mui/material/Box';
+import { Button } from "@chakra-ui/react"
+
 
 
 import { SmartBezierEdge } from '@tisoap/react-flow-smart-edge'
@@ -228,7 +231,7 @@ export default function CoreFlow2({initiativeData, toBeZoomedNodeId}) {
 
     return (
         <>
-        <button onClick={onSave}>Save</button>
+        <Button onClick={onSave}>Save</Button>
 
         {menuVisible && <ContextMenu nodes={nodes}
                                      setMenuVisible={setMenuVisible} position={contextMenuPositions} />}

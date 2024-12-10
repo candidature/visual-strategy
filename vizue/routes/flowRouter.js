@@ -39,5 +39,14 @@ router.route('/:initiative/objective/:objectiveId').get(getSingleObjective).put(
 router.route('/:initiative/task/:taskId').get(getSingleTask).put(authMiddleware,updateSingleTask);
 
 
+//below is a redesign
+// CURD  -  initiative.
+// history of initiative in single mongo doc.
+//{
+//}
+//CURD Create goal(s)
+
+//CURD Tasks
+
 
 export default router;

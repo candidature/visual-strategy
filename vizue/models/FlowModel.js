@@ -79,6 +79,7 @@ const FlowSchema = new mongoose.Schema({
     viewport: {},
     edges: [],
     nodes: [],
+    owners: [],
 }, {timestamps: true});
 
 //Collection is like table - where we group all things

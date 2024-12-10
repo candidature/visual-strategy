@@ -14,6 +14,9 @@ import Button from '@mui/material/Button';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 
+import { Badge, Stack } from "@chakra-ui/react"
+
+
 export const loader = async ({params,request})=> {
 
     const zoomNodeName = new URL(request.url).searchParams.get('zoomNodeName');
@@ -119,7 +122,7 @@ export default function SelectInitiative() {
       steps={16}
       position="static"
       activeStep={activeStep}
-      sx={{ minWidth: 700, maxWidth: 700, flexGrow: 1 }}
+      sx={{ minWidth: 700, maxWidth: 700, flexGrow: -1 }}
       nextButton={
         <Button size="small" onClick={handleNext} disabled={activeStep === 16}>
           Next
@@ -155,31 +158,12 @@ export default function SelectInitiative() {
                     </select>
                 </div>
 
-                <div className="Column">
-                    <input type="checkbox" id="to-do" name="to-do" value="to-do"/>
-                    <label htmlFor="to-do"> To Do's</label><br/>
-                </div>
-
-                <div className="Column">
-                    <input type="checkbox" id="in-progress" name="in-progress" value="in-progress"/>
-                    <label htmlFor="in-progress"> In Progress</label><br/>
-                </div>
-
-
-                <div className="Column">
-                    <input type="checkbox" id="in-review" name="in-review" value="in-review"/>
-                    <label htmlFor="in-review"> In Review</label><br/>
-                </div>
-
-                <div className="Column">
-                    <input type="checkbox" id="completed" name="completed" value="completed"/>
-                    <label htmlFor="completed"> Completed</label><br/>
-                </div>
-
-                <div className="Column">
-                    <input type="checkbox" id="stopped" name="stopped" value="stopped"/>
-                    <label htmlFor="stopped"> Stopped/Archived</label><br/>
-                </div>
+                <Stack direction="row">
+                <Badge>Default</Badge>
+                <Badge colorPalette="green">COMPLETED</Badge>
+                <Badge colorPalette="red">TODO</Badge>
+                <Badge colorPalette="purple">IN_PROGRESS</Badge>
+                </Stack>
 
             </div>
                 <ReactFlowProvider>

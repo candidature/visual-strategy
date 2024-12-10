@@ -62,7 +62,7 @@ export default function OBJECTIVE_NODE({data, rfInstance,nodes, edges} ) {
     const getStats = async (id) => {
         let node = getNode(id)
 
-        const outgoers = await getOutgoers( node, nodes, edges );
+        const outgoers = getOutgoers( node, nodes, edges );
         console.log("Outgoing stats for ", outgoers)
 
         let hasDepNotCompleted=false;
