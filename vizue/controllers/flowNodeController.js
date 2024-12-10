@@ -24,9 +24,7 @@ export const getNodeIdByName= async (req, res) => {
             zoomNodeId = data?.id
         })
     }
-
     console.log(zoomNodeId)
-
 }
 
 

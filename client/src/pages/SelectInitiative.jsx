@@ -8,11 +8,18 @@ import {toast} from "react-toastify";
 import {json} from "@remix-run/router";
 import {DashboardContext} from "./DashboardLayout.jsx";
 
+import { useTheme } from '@mui/material/styles';
+import MobileStepper from '@mui/material/MobileStepper';
+import Button from '@mui/material/Button';
+import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
+import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
+
 export const loader = async ({params,request})=> {
 
     const zoomNodeName = new URL(request.url).searchParams.get('zoomNodeName');
     console.log(zoomNodeName)
 
+    
 
     // try {
     //     //TBD: below 2 to be done in parallel as descibed here: https://stackoverflow.com/questions/74719956/can-i-handle-multiple-loaders-for-a-single-url-in-remix
@@ -41,7 +48,16 @@ export const loader = async ({params,request})=> {
 export default function SelectInitiative() {
     const { initiative } = useParams();
 
+    const theme = useTheme();
+    const [activeStep, setActiveStep] = React.useState(0);
 
+    const handleNext = () => {
+        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    };
+
+    const handleBack = () => {
+        setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    };
 
     //console.log(initiative);
 
@@ -97,6 +113,34 @@ export default function SelectInitiative() {
 
 
     return (
+        <>
+        <MobileStepper
+      variant="dots"
+      steps={16}
+      position="static"
+      activeStep={activeStep}
+      sx={{ minWidth: 700, maxWidth: 700, flexGrow: 1 }}
+      nextButton={
+        <Button size="small" onClick={handleNext} disabled={activeStep === 16}>
+          Next
+          {theme.direction === 'rtl' ? (
+            <KeyboardArrowLeft />
+          ) : (
+            <KeyboardArrowRight />
+          )}
+        </Button>
+      }
+      backButton={
+        <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
+          {theme.direction === 'rtl' ? (
+            <KeyboardArrowRight />
+          ) : (
+            <KeyboardArrowLeft />
+          )}
+          Back
+        </Button>
+      }
+    />
         <ChakraProvider>
             <div className="Row">
                 <div className="Column">
@@ -144,6 +188,7 @@ export default function SelectInitiative() {
                                />
                 </ReactFlowProvider>
         </ChakraProvider>
+        </>
     )
 }
 SelectInitiative.loader = loader;
