@@ -15,9 +15,11 @@ import {deleteInitiative, getInitiative, updateInitiative} from "../controllers/
 import {getSingleNode, updateSingleNode} from "../controllers/singleFlowNodeController.js";
 import {getSingleObjective, updateSingleObjective} from "../controllers/singleObjectiveController.js";
 import {getSingleTask, updateSingleTask} from "../controllers/singleTaskController.js";
-
+import {createInitiative, updateNewInitiative} from "../controllers2/initiativeController.js"
 
 const router = Router();
+
+
 
 //Actually these are for initiatives.
 
@@ -37,6 +39,12 @@ router.route('/:initiative/:initiativeId').get(getSingleNode).put(updateSingleNo
 router.route('/:initiative/objective/:objectiveId').get(getSingleObjective).put(updateSingleObjective);
 
 router.route('/:initiative/task/:taskId').get(getSingleTask).put(authMiddleware,updateSingleTask);
+
+
+
+///Below code should be removed if you want to switch to old version - or should be moved at the bottom.
+console.log("Reached inside router")
+router.route('/0/').post(authMiddleware,createInitiative).put(authMiddleware, updateNewInitiative);
 
 
 //below is a redesign

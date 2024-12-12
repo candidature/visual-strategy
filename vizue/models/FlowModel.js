@@ -79,11 +79,11 @@ const FlowSchema = new mongoose.Schema({
     viewport: {},
     edges: [],
     nodes: [],
-    owners: [],
+    
 }, {timestamps: true});
 
 //Collection is like table - where we group all things
 
-export default mongoose.model("FlowModel", FlowSchema);
+export default mongoose.model("FlowModel2", FlowSchema);
 
 

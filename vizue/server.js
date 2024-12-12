@@ -10,6 +10,8 @@ import cookieParser from "cookie-parser";
 /////// Router /////////
 import initiativeRouter from './routes/initiativeRouter.js';
 import flowRouter from './routes/flowRouter.js';
+import flowRouter2 from './routes/flowRouter2.js';
+
 import authRouter from './routes/authRouter.js';
 import userRouter from "./routes/userRouter.js";
 
@@ -76,6 +78,11 @@ app.post('/api/v1/test',validateTest,
 app.use('/api/v1/initiatives', initiativeRouter)
 
 app.use('/api/v1/flow-test', flowRouter)
+
+
+//app.use('/api/v1/initiative', flowRouter)
+
+app.use('/api/v1/initiative2', flowRouter2)
 
 app.use('/api/v1/auth', authRouter)
 
