@@ -4,11 +4,11 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "setup-project": "npm i && npm i uuid && cd ../client && npm i && npm i uuid",
-    "setup-production-app": "npm i && npm i uuid && echo \"=======CLIENT======\n\" && cd ../client && npm i && npm i uuid && npm run build && sleep 3",
-    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
+    "setup-project": "npm i && npm i uuid && cd ../client5 && npm i && npm i uuid",
+    "setup-production-app": "npm i && npm i uuid && echo \"=======CLIENT======\n\" && cd ../client5 && npm i && npm i uuid && npm run build && sleep 3",
+    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client5\"",
     "server": "nodemon server",
-    "client": "cd ../client && npm run dev"
+    "client": "cd ../client5 && npm run dev"
   },
   "keywords": [],
   "author": "",
