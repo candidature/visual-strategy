@@ -13,7 +13,8 @@ const UserSchema = new mongoose.Schema({
         enum: ["user", "admin", "readonly"], //If you are a user, you have readwrite to your department. If you are a admin, you have suprt
         //If you are having readonly, you have readonly to everything by default. everyone can see big picture.
         default: "user"
-    }
+    },
+    roles: ["DEFAULT_READONLY","DEFAULT_READWRITE"],
 }, {timestamps: true});
 
 //Fix to make sure if someone looks at current-user on froentend they don't get password.

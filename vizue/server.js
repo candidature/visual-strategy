@@ -15,6 +15,9 @@ import flowRouter2 from './routes/flowRouter2.js';
 import authRouter from './routes/authRouter.js';
 import userRouter from "./routes/userRouter.js";
 
+import utilRouter from "./routes/utilRouter.js";
+import historyRouter from "./routes/historyRouter.js";
+
 /////// Middleware /////////
 import {validateTest} from "./middleware/validationMiddleware.js";
 ////Middleware for error handling and authentication.
@@ -77,12 +80,17 @@ app.post('/api/v1/test',validateTest,
 //To below so that we do not have any middleware to view.
 app.use('/api/v1/initiatives', initiativeRouter)
 
-app.use('/api/v1/flow-test', flowRouter)
+//just now commented this to migrate.
+//app.use('/api/v1/flow-test', flowRouter)
 
 
 //app.use('/api/v1/initiative', flowRouter)
 
 app.use('/api/v1/initiative2', flowRouter2)
+
+app.use('/api/v1/history', historyRouter)
+
+app.use('/api/v1/util', utilRouter)
 
 app.use('/api/v1/auth', authRouter)
 

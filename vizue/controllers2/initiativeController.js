@@ -40,10 +40,9 @@ export const updateNewInitiative = async (req, res) => {
             let foundNode = false
             //below code is common
             if(Object.keys(document).length !== 0) {
-                console.log("Node id", req.body.nodes.id)
                 document?.nodes.map((node)=>{
-                    if (node?.id === req.body?.nodes?.id) {
-                        console.log("Found node too", req.body?.nodes?.id)
+                    if (node?.type === "INITIATIVE_NODE") {
+                        console.log("Found node too", node.id)
                         foundNode=true
                         //let newValue= {}
                         //newValue.updated_by = req.jwtData.userId;
@@ -90,8 +89,8 @@ export const updateNewInitiative = async (req, res) => {
 
 
 function modifyInitiativeFields(initialValue,newValue) {
-    //console.log(initialValue)
-    //console.log(newValue)
+    console.log(initialValue)
+    console.log(newValue)
     if(newValue.visibility) {
         initialValue.visibility = newValue.visibility
     }
@@ -150,9 +149,8 @@ export const deleteNewInitiative = async (req, res) => {
             let foundNode = false
             //below code is common
             if(Object.keys(document).length !== 0) {
-                console.log("Node id", req.body.nodes.id)
                 document?.nodes.map((node)=>{
-                    if (node?.id === req.body?.nodes?.id && node.type==="INITIATIVE_NODE") {
+                    if (node.type==="INITIATIVE_NODE") {
                         console.log("Found node too", req.body?.nodes?.id)
                         foundNode=true
                         //let newValue= {}
@@ -302,6 +300,8 @@ export const deleteNewInitiative = async (req, res) => {
 export const createInitiative = async (req, res) => {
     let nodeId = nanoid()
 
+    console.log(req.jwtData)
+    
     console.log("now inside create initiative")
     //const position = screenToFlowPosition({ x: evt.clientX, y: evt.clientY });
 
@@ -316,8 +316,8 @@ export const createInitiative = async (req, res) => {
         id: nodeId,
         deletable: false,
         position: {
-            x: req.body.position.x,
-            y: req.body.position.y,
+            x: req.body?.position?.x || 7,
+            y: req.body?.position?.y || 20,
         },
         data: {
             id: nodeId,
@@ -325,7 +325,7 @@ export const createInitiative = async (req, res) => {
             description: req.body.description,
             assigned_to: "",
             state: req.body.status,
-            access_labels: [""],
+            access_labels: ["EVERYONE_READONLY"],
             general_labels: [""],
             kpis:[
                 {
@@ -368,9 +368,10 @@ export const createInitiative = async (req, res) => {
 //Get all the initiatives in the dataase.
 export const getAllInitiative = async(req,res)=> {
 
+    console.log("Getting list of inits...")
     const initiativeFromDb = await FlowSchema
         //.findOne({"nodes.data.name":initiative})
-        .findOne({$and:[{"nodes.type": "INITIATIVE_NODE"}]})
+        .find({"nodes.type": "INITIATIVE_NODE"})
         .then(async (data) => {
             if (!data) {
                 return res.status(StatusCodes.NOT_FOUND).json({"message": "No initiative data found"});
@@ -411,13 +412,57 @@ export const getMyInitiative = async (req, res) => {
 //Get a single initiative details.
 export const getSingleInitiative = async (req, res) => {
 
-    console.log("now inside get new initiative")
 
-    const { initiative } = req.params.toString().trimStart().trimEnd();
+    const { initiative } = req.params;
+    console.log("Getting single initiative ", initiative)
+    
+    if(!initiative) {
+        return res.status(StatusCodes.NOT_FOUND).json({"message": "Empty initivate asked for!"});
+    }
+    console.log("now inside get single initiative " , initiative)
+
+    // .findOne({$and:[
+    //     {"nodes.type": "INITIATIVE_NODE"},
+    //     {$or: [{"_id":initiative},{"nodes.data.name":initiative}]},
+
+    // ]})
 
     const initiativeFromDb = await FlowSchema
         //.findOne({"nodes.data.name":initiative})
         .findOne({$and:[{"nodes.type": "INITIATIVE_NODE"},{"nodes.data.name":initiative}]})
+        .then(async (data) => {
+            if (!data) {
+                return res.status(StatusCodes.NOT_FOUND).json({"message": "No initiative data found"});
+            } else {
+                return res.status(StatusCodes.OK).json(data);
+            }
+        }).catch((err) => {
+            return res.status(StatusCodes.BAD_REQUEST).json({"message": err.message});
+        })
+}
+
+
+//Get a single initiative details.
+export const getSingleInitiativeByDocId = async (req, res) => {
+
+
+    const { docId } = req.params;
+    console.log("Getting single initiative ", docId)
+    
+    if(!docId) {
+        return res.status(StatusCodes.NOT_FOUND).json({"message": "Empty initivate asked for!"});
+    }
+    console.log("now inside get single initiative " , docId)
+
+    // .findOne({$and:[
+    //     {"nodes.type": "INITIATIVE_NODE"},
+    //     {$or: [{"_id":initiative},{"nodes.data.name":initiative}]},
+
+    // ]})
+
+    const initiativeFromDb = await FlowSchema
+        //.findOne({"nodes.data.name":initiative})
+        .findOne({$and:[{"nodes.type": "INITIATIVE_NODE"},{"_id":docId}]})
         .then(async (data) => {
             if (!data) {
                 return res.status(StatusCodes.NOT_FOUND).json({"message": "No initiative data found"});

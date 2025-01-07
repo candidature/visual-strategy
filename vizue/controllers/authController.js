@@ -17,6 +17,8 @@ export const registerUser = async (req, res) => {
 
     req.body.role = isFirstAccount ? "admin" : "user";
 
+    req.body.roles = ["READ_ONLY"]
+
     //Hashing the password.
 
     req.body.password = await hashPassword(req.body.password);
@@ -34,12 +36,12 @@ export const loginUser = async (req, res) => {
     if (!user) throw new UnauthenticatedError('invalid email - unregistered');
 
     if(await comparePassword(req.body.password,user.password) === false) {
-        res.status(StatusCodes.UNAUTHORIZED).json({"message": "user credentials does not match"});
+        return res.status(StatusCodes.UNAUTHORIZED).json({"message": "user credentials does not match"});
     }
 
     //Now create JWT
 
-    const token = createJWT({'userId':user._id, role: user.role });
+    const token = createJWT({'userId':user._id, role: user.role , roles: user?.roles});
 
     //Below in milliseconds
     const oneDay = 1000 * 60 * 60 * 24;
@@ -50,7 +52,7 @@ export const loginUser = async (req, res) => {
     res.header('Access-Control-Allow-Headers', '*')
 
     res.cookie('token', token, { httpOnly: true, secure: false, sameSite: true, expires: new Date(Date.now() +oneDay) });
-    res.status(StatusCodes.OK).json({"message": "user logged in"});
+    return res.status(StatusCodes.OK).json({"message": "user logged in"});
 }
 
 //Logout user

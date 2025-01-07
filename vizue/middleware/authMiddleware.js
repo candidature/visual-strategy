@@ -9,11 +9,11 @@ export const authMiddleware = (req, res, next) => {
         throw new UnauthenticatedError('No token found in cookie - Unauthenticated');
     }
     try {
-        const {userId, role} = verifyJWT(token);
+        const {userId, role, roles } = verifyJWT(token);
 
         //Video used req.user while i used req.jwtData
         // This means every req instance would have jwtData and can be accessed.
-        req.jwtData = {userId, role};
+        req.jwtData = {userId, role, roles};
         next()
     }catch(err){
         throw new UnauthenticatedError("UnauthenticatedError: ",err);

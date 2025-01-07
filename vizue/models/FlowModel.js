@@ -79,6 +79,7 @@ const FlowSchema = new mongoose.Schema({
     viewport: {},
     edges: [],
     nodes: [],
+    updated_by: String
     
 }, {timestamps: true});
 

@@ -2,6 +2,18 @@ import {StatusCodes} from "http-status-codes";
 import UserModel from "../models/UserModel.js";
 import InitiativeModel from "../models/InitiativeModel.js";
 
+export const getUsers = async (req, res) => {
+
+    //since there is authentica middleware in front of it, we will have user if we reach this point.
+    const users = await UserModel.find({})
+    //const userWithoutPassword = user.toJSON()
+    res.header('Access-Control-Allow-Origin', '*')
+    res.header('Access-Control-Allow-Headers', '*')
+
+    res.status(StatusCodes.OK).json(users);
+}
+
+
 export const getCurrentUser = async (req, res) => {
 
     //since there is authentica middleware in front of it, we will have user if we reach this point.
