@@ -303,7 +303,7 @@ export default function CoreFlow5({originDocumentId,historyDocumentId, general_l
         if(historyDocumentId==="NONE" || historyDocumentId === originDocumentId) {
             setMenuVisible(true);
         } else {
-            toast.warn("Can not modify the hisotry!")
+            //toast.warn("Can not modify the hisotry!")
         }
         
         setContextMenuPositions({ x: event.pageX, y: event.pageY });

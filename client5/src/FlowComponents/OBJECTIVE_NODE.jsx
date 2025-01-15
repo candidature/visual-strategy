@@ -104,7 +104,7 @@ export default function OBJECTIVE_NODE({originDocumentId, historyDocumentId, dat
             })
             .catch(error => console.error(error));
         } else {
-            toast.warn("Failed to fetch data!")
+            //toast.warn("Failed to fetch data!")
         }
 
         if(showCompleted && nodeState ==="COMPLETED") {
