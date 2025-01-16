@@ -60,7 +60,7 @@ app.use(express.urlencoded({ extended: true }));
 
 //app.use(express.static('public'));
 //Below line is to serve frontend from node server. We did build frontend and put that under dist folder
-app.use(express.static(path.resolve(__dirname, '../client/dist')));
+app.use(express.static(path.resolve(__dirname, '../client5/dist')));
 
 /////////////////////////////////////////////////////////////////
 app.get('/', (req, res) => {
@@ -98,7 +98,7 @@ app.use('/api/v1/users', authMiddleware,userRouter)
 
 
 app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../client/dist', 'index.html'));
+    res.sendFile(path.resolve(__dirname, '../client5/dist', 'index.html'));
 });
 
 //////////////////////////////////////////////////
